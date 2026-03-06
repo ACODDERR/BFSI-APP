@@ -6,6 +6,18 @@ const register = async (data) => {
 
   const { name, email, password } = data;
 
+  if(!name){
+    throw new Error("Name is Required")
+  }
+
+   if(!email){
+    throw new Error("Email is Required")
+  }
+
+  if(!password){
+    throw new Error("Password is Required")
+  }
+
   const existingUser = await User.findOne({
     where: { email }
   });
@@ -41,6 +53,15 @@ const register = async (data) => {
 const login = async (data) => {
 
   const { email, password } = data;
+
+   if(!email){
+    throw new Error("Email is Required")
+  }
+
+  if(!password){
+    throw new Error("Password is Required")
+  }
+
 
   const user = await User.findOne({
     where: { email }
