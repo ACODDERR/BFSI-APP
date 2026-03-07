@@ -102,6 +102,8 @@ const submitClaim = async (req, res) => {
 
     const type = insuranceType.toLowerCase();
     const premium = parseFloat(premiumAmount);
+
+
     const user = username.trim().toLowerCase();
     const claimId = generateClaimId(type);
     const filePath = req.file.path;
@@ -164,6 +166,7 @@ if (duplicateCheck.isDuplicate) {
 
     const finalStatus = computeFinalStatus(finalRiskScore, duplicateCheck.isDuplicate);
     const processingTime = Date.now() - startTime;
+
 
     // Step 6: Save claim to database
     const claim = await Claim.create({

@@ -7,6 +7,7 @@ const defineClaimModel = () => {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
+      allowNull: false
     },
     claimId: {
       type: DataTypes.STRING(20),

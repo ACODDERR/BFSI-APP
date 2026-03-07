@@ -85,7 +85,8 @@ const login = async (data) => {
   return {
     user: {
       id: user.id,
-      email: user.email
+      email: user.email,
+      name: user.name
     },
     token
   };

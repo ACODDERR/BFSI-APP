@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 connectDB();
-
+// sequelize.sync({alter:true})
 
 app.use("/api/auth", authRoutes);
 app.use("/api/claim", claimRoutes)
