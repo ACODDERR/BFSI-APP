@@ -250,7 +250,6 @@ const getClaimById = async (req, res) => {
       return res.status(404).json({ success: false, message: `Claim ${claimId} not found` });
     }
 
-    console.log(claim);
 
     return res.json({ success: true, data: formatClaimResponse(claim) });
   } catch (error) {
@@ -337,4 +336,71 @@ const getStats = async (req, res) => {
   }
 };
 
-module.exports = { submitClaim, getClaimById, listClaims, getStats };
+
+const getClaimByUsername = async (req, res) => {
+  try {
+    const { claimemail } = req.params;
+    const claim = await Claim.findAll({ where: { username:claimemail } });
+
+    if (!claim) {
+      return res.status(404).json({ success: false, message: `Claim ${claimemail} not found` });
+    }
+
+
+    return res.json({ success: true, data: claim.map(formatClaimResponse) });
+  } catch (error) {
+    console.error('getClaimById error:', error);
+    return res.status(500).json({ success: false, message: 'Error retrieving claim' });
+  }
+};
+
+const getTopRiskClaims = async (req, res) => {
+  try {
+
+    const claims = await Claim.findAll({
+      order: [['riskScore', 'DESC']],
+      limit: 5
+    });
+
+    return res.json({
+      success: true,
+      count: claims.length,
+      data: claims
+    });
+
+  } catch (error) {
+    console.error("getTopRiskClaims error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Error retrieving top risk claims"
+    });
+  }
+};
+
+const getLatestClaims = async (req, res) => {
+  try {
+
+    const claims = await Claim.findAll({
+      order: [['created_at', 'DESC']],
+      limit: 5
+    });
+
+
+    return res.json({
+      success: true,
+      count: claims.length,
+      data: claims
+    });
+
+  } catch (error) {
+    console.error("getLatestClaims error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Error retrieving latest claims"
+    });
+  }
+};
+
+module.exports = { submitClaim, getClaimById, listClaims, getStats, getClaimByUsername, getTopRiskClaims, getLatestClaims };

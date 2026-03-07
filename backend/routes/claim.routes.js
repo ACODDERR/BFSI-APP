@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { submitClaim, getClaimById, listClaims, getStats } = require('../controllers/claim.controller');
+const { submitClaim, getClaimById, listClaims, getStats, getTopRiskClaims,getLatestClaims, getClaimByUsername } = require('../controllers/claim.controller');
 const { upload, handleMulterError } = require('../middleware/upload.middleware');
 
 const authMiddleware = require('../middleware/auth.middleware')
@@ -30,5 +30,11 @@ router.get('/',authMiddleware, listClaims);
  * @desc    Fetch a single claim by claim ID
  */
 router.get('/:claimId',authMiddleware, getClaimById);
+
+router.get('/ind/:claimemail',authMiddleware, getClaimByUsername);
+
+
+router.get("/risk/top-risk", authMiddleware, getTopRiskClaims);
+router.get("/top/latest", authMiddleware, getLatestClaims);
 
 module.exports = router;
