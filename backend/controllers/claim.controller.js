@@ -179,7 +179,7 @@ if (duplicateCheck.isDuplicate) {
       billFilePath: filePath,
       extractedText: ocrResult.rawText?.text?.substring(0, 5000) || null,
       riskScore: finalRiskScore,
-      status: finalStatus,
+      status: finalStatus, 
       isDuplicate: duplicateCheck.isDuplicate,
       duplicateOfClaimId: duplicateCheck.duplicateOfClaimId || null,
       fraudReasons: allFraudReasons,
