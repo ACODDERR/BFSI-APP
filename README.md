@@ -2,7 +2,7 @@
 
 
 
-A full-stack music application consisting of:
+A full-stack Insurance claim application consisting of:
 
 
 
